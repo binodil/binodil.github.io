@@ -38,7 +38,7 @@ jobs:
         with:
           repository: ${{ inputs.site_repo }}
           ref: ${{ inputs.site_ref }}
-          token: ${{ secrets.site_repo_token }}
+          token: ${{ secrets.BINODIL_FIRST_PAT }}
       - uses: actions/checkout@v6
         with:
           repository: ${{ inputs.theme_repo }}
