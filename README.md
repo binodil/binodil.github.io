@@ -1,5 +1,10 @@
 ## Hi there 👋
 
+This repo hosts my personal website "https://binodil.github.io".
+I use github actions and Github PAT Token to fetch content of private repo and deploy to github pages.
+
+
+How to reach to me: "through email"
 <!--
 **binodil/binodil** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
