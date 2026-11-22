@@ -3,8 +3,9 @@ on:
   push:
     branches:
       - 'main'
+  workflow_dispatch:      # "Run workflow" button in the Actions tab
   schedule:
-    - cron: '0 0 * * *'  # Every hour
+    - cron: '0 0 * * *'  # Every day at 00:00 UTC
 jobs:
   pages:
     runs-on: ubuntu-latest
@@ -19,12 +20,10 @@ jobs:
     with:
       site_repo: binodil/blog
       site_ref: main
-      theme_repo: pelican-themes/sidecar
-      theme_ref: main
       base_url: ${{ needs.pages.outputs.base_url }}
       artifact_name: "github-pages"
     secrets:
-      site_repo_token: ${{ secrets.BLOG_TOKEN3 }}
+      site_repo_ssh_key: ${{ secrets.BLOG_DEPLOY_KEY }}
   deploy:
     needs: build
     runs-on: ubuntu-latest

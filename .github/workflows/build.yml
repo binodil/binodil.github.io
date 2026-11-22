@@ -10,14 +10,6 @@ on:
         description: "The site repo branch, tag, or SHA to checkout."
         required: true
         type: string
-      theme_repo:
-        description: "The theme repo to checkout."
-        required: true
-        type: string
-      theme_ref:
-        description: "The theme repo branch, tag, or SHA to checkout."
-        required: true
-        type: string
       base_url:
         description: "The base URL that the site will be deployed to. Examples: 'https://octocat.github.io/my-repo', 'https://octocat.github.io', 'https://www.example.com'."
         required: true
@@ -27,8 +19,8 @@ on:
         required: false
         type: string
     secrets:
-      site_repo_token:
-        description: "The GitHub token to use when checking out site_repo"
+      site_repo_ssh_key:
+        description: "Private SSH deploy key with read access to site_repo (never expires)"
         required: true
 jobs:
   build:
@@ -38,12 +30,7 @@ jobs:
         with:
           repository: ${{ inputs.site_repo }}
           ref: ${{ inputs.site_ref }}
-          token: ${{ secrets.site_repo_token }}
-      - uses: actions/checkout@v6
-        with:
-          repository: ${{ inputs.theme_repo }}
-          ref: ${{ inputs.theme_ref }}
-          path: ".theme"
+          ssh-key: ${{ secrets.site_repo_ssh_key }}
       - uses: actions/setup-python@v6
         with:
           python-version-file: ".python-version"
@@ -57,8 +44,8 @@ jobs:
           --settings pelicanconf.py \
           --extra-settings \
           SITEURL='"${{ inputs.base_url }}"' \
-          FEED_DOMAIN='"${{ inputs.base_url }}"' \
-          --theme-path .theme
+          FEED_DOMAIN='"${{ inputs.base_url }}"'
+          # The theme lives in the site repo itself (THEME = "." in pelicanconf.py).
       - run: |
           echo "::group::Archive artifact"
           tar \
