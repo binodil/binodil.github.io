@@ -1,21 +1,13 @@
-## Hi there 👋
+# binodil.github.io
 
-This repo hosts my personal website "https://binodil.github.io".
-I use github actions and Github PAT Token to fetch content of private repo and deploy to github pages.
+Source of the deployment for my personal website: **https://binodil.github.io**
 
+The site is written with [Pelican](https://getpelican.com/) and built from a
+separate repository by GitHub Actions:
 
-How to reach to me: "through email"
-<!--
-**binodil/binodil** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+- `.github/workflows/deploy.yml` runs on every push, daily at 00:00 UTC, or
+  manually ("Run workflow" in the Actions tab), and publishes to GitHub Pages.
+- `.github/workflows/build.yml` checks out the site sources with a read-only
+  deploy key, builds them with Pelican, and uploads the result.
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+To get in touch, see https://binodil.github.io/work-with-me/
