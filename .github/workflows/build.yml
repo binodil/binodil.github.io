@@ -31,13 +31,12 @@ jobs:
           repository: ${{ inputs.site_repo }}
           ref: ${{ inputs.site_ref }}
           ssh-key: ${{ secrets.site_repo_ssh_key }}
-      - uses: actions/setup-python@v6
-        with:
-          python-version-file: ".python-version"
       - uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
           version: 0.10.7
+      # uv installs the exact Python from .python-version itself, so runner
+      # image updates (e.g. a new Ubuntu) can't break the build.
       - run: uv sync --locked
       - run: |
           uv run pelican \
